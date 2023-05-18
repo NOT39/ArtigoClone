@@ -91,10 +91,16 @@ export const GuessFormContainer = styled.div`
 
     background-color: transparent;
     border: none;
+    outline: none;
     border-radius: 9999px;
 
     svg {
       color: ${(props) => props.theme['gray-200']};
+    }
+
+    :focus {
+      outline: transparent;
+      border: transparent;
     }
   }
 `

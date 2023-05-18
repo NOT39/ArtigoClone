@@ -9,13 +9,22 @@ import {
   GuessHistory,
   Header,
 } from './app.styles'
+import { Alpha } from './components/Alpha'
 
 const titleMock = ['Floresta']
 
+const punctuationList = '{}()\\[\\]\\\\.…,;:!¡?¿/@#%\\^&*_—~+\\-=<>«»"\'’\\s'
+const separatorRegex = new RegExp(`([${punctuationList}\\d]+)`, 'gim')
+
 const paragraphMock =
-  'Floresta é uma área com alta densidade de árvores. Segundo dados da Organização das Nações Unidas para a Alimentação e a Agricultura, as florestas ocupavam em 2006 cerca de 4 bilhões de hectares ou aproximadamente 30% da superfície terrestre. As florestas são vitais para a vida do ser humano, devido a muitos fatores principalmente de ordem climática. As florestas são o ecossistema terrestre dominante da Terra e são distribuídas ao redor do globo. De acordo com a definição amplamente utilizada, da Organização para a Alimentação e a Agricultura, as florestas cobriam 41 milhões de km² do globo em 1990 e 39,9 milhões de km² em 2016.A mais conhecida floresta é a floresta Amazônica, maior que muitos países. Erroneamente considerada o Pulmão do Mundo, não é, pois foi comprovado cientificamente que a floresta Amazônica consome cerca de 65% do oxigênio que produz (com a fotossíntese) com a respiração e transpiração das plantas. A taiga siberiana é a maior floresta do mundo, sendo que este bioma estende-se para além da Sibéria, nomeadamente, pelo Alasca, Canadá, Groenlândia, Norte da Europa e Japão.'.split(
-    ' ',
-  )
+  'Floresta é uma área com alta densidade de árvores. Segundo dados da Organização das Nações Unidas para a Alimentação e a Agricultura, as florestas ocupavam em 2006 cerca de 4 bilhões de hectares ou aproximadamente 30% da superfície terrestre. As florestas são vitais para a vida do ser humano, devido a muitos fatores principalmente de ordem climática. As florestas são o ecossistema terrestre dominante da Terra e são distribuídas ao redor do globo. De acordo com a definição amplamente utilizada, da Organização para a Alimentação e a Agricultura, as florestas cobriam 41 milhões de km² do globo em 1990 e 39,9 milhões de km² em 2016.A mais conhecida floresta é a floresta Amazônica, maior que muitos países. Erroneamente considerada o Pulmão do Mundo, não é, pois foi comprovado cientificamente que a floresta Amazônica consome cerca de 65% do oxigênio que produz (com a fotossíntese) com a respiração e transpiração das plantas. A taiga siberiana é a maior floresta do mundo, sendo que este bioma estende-se para além da Sibéria, nomeadamente, pelo Alasca, Canadá, Groenlândia, Norte da Europa e Japão.'
+    .split(separatorRegex)
+    .map((text) => {
+      return {
+        text,
+        isVisible: !!text.match(separatorRegex),
+      }
+    })
 
 export function App() {
   return (
@@ -32,21 +41,15 @@ export function App() {
               {titleMock.map((word, index) => {
                 return (
                   <>
-                    <span key={index}>{word}</span>
-                    {index < titleMock.length - 1 ? ' ' : ''}
+                    <span key={word + index}>{word}</span>
                   </>
                 )
               })}
             </a>
           </h2>
           <p>
-            {paragraphMock.map((word, index) => {
-              return (
-                <>
-                  <span key={index}>{word}</span>
-                  {index < paragraphMock.length - 1 ? ' ' : ''}
-                </>
-              )
+            {paragraphMock.map((alpha, index) => {
+              return <Alpha alpha={alpha} key={index} />
             })}
           </p>
           <h3>
@@ -54,7 +57,6 @@ export function App() {
               return (
                 <>
                   <span key={index}>{word}</span>
-                  {index < titleMock.length - 1 ? ' ' : ''}
                 </>
               )
             })}
