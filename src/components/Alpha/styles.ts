@@ -5,13 +5,19 @@ interface WordProps {
   wordLength: number
 }
 
-export const Word = styled.span<WordProps>`
+export const WordContainer = styled.span<WordProps>`
   cursor: pointer;
+  user-select: none;
+  position: relative;
 
-  &::before {
+  background-color: ${(props) => props.theme['gray-100']};
+
+  &::after {
     content: ${(props) => (props.lengthVisible ? `"${props.wordLength}"` : '')};
 
     position: absolute;
-    color: ${(props) => props.theme['gray-700']};
+    left: 0;
+
+    color: ${(props) => props.theme['gray-600']};
   }
 `

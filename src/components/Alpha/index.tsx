@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Word } from './styles'
+import { WordContainer } from './styles'
 
 interface AlphaProps {
   alpha: {
@@ -26,13 +26,13 @@ export function Alpha({ alpha }: AlphaProps) {
   }
 
   return isWord && !alpha.isVisible ? (
-    <Word
+    <WordContainer
       lengthVisible={lengthVisible}
       wordLength={alpha.text.length}
       onClick={handleShowLength}
     >
       {hideWord(alpha.text)}
-    </Word>
+    </WordContainer>
   ) : (
     <>{alpha.text}</>
   )

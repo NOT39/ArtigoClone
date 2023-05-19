@@ -1,17 +1,8 @@
-import { PaperPlaneRight } from 'phosphor-react'
-
-import {
-  AppContainer,
-  ArticleContainer,
-  ControllerContainer,
-  Guess,
-  GuessFormContainer,
-  GuessHistory,
-  Header,
-} from './app.styles'
+import { AppContainer, ArticleContainer, Header } from './app.styles'
 import { Alpha } from './components/Alpha'
+import { GameController } from './components/GameController'
 
-const titleMock = ['Floresta']
+const titleMock = [{ text: 'Floresta', isVisible: false }]
 
 const punctuationList = '{}()\\[\\]\\\\.…,;:!¡?¿/@#%\\^&*_—~+\\-=<>«»"\'’\\s'
 const separatorRegex = new RegExp(`([${punctuationList}\\d]+)`, 'gim')
@@ -37,17 +28,13 @@ export function App() {
       <main>
         <ArticleContainer>
           <h2>
-            <a href="">
-              {titleMock.map((word, index) => {
-                return (
-                  <>
-                    <span key={word + index}>{word}</span>
-                  </>
-                )
+            <a href="#">
+              {titleMock.map((alpha, index) => {
+                return <Alpha alpha={alpha} key={index} />
               })}
             </a>
           </h2>
-          <p>
+          <p style={{ position: 'relative' }}>
             {paragraphMock.map((alpha, index) => {
               return <Alpha alpha={alpha} key={index} />
             })}
@@ -56,7 +43,7 @@ export function App() {
             {titleMock.map((word, index) => {
               return (
                 <>
-                  <span key={index}>{word}</span>
+                  <span key={index}>{word.text}</span>
                 </>
               )
             })}
@@ -70,24 +57,8 @@ export function App() {
             <span>escrever</span>
           </p>
         </ArticleContainer>
-        <ControllerContainer>
-          <GuessFormContainer>
-            <input type="text" placeholder="palpite uma palavra" />
-            <button>
-              <PaperPlaneRight size={32} weight="fill" />
-            </button>
-          </GuessFormContainer>
 
-          <GuessHistory>
-            <h2>5 palpites</h2>
-            <ul>
-              <Guess variant="wrong">Sim</Guess>
-              <Guess variant="wrong">Ovo</Guess>
-              <Guess variant="right">Não</Guess>
-              <Guess variant="right">Não</Guess>
-            </ul>
-          </GuessHistory>
-        </ControllerContainer>
+        <GameController />
       </main>
     </AppContainer>
   )
