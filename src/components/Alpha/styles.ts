@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
 interface WordProps {
-  lengthVisible?: boolean
-  wordLength: number
+  $lengthVisible?: boolean
+  $wordLength: number
 }
 
 export const WordContainer = styled.span<WordProps>`
@@ -13,7 +13,8 @@ export const WordContainer = styled.span<WordProps>`
   background-color: ${(props) => props.theme['gray-100']};
 
   &::after {
-    content: ${(props) => (props.lengthVisible ? `"${props.wordLength}"` : '')};
+    content: ${(props) =>
+      props.$lengthVisible ? `"${props.$wordLength}"` : ''};
 
     position: absolute;
     left: 0;

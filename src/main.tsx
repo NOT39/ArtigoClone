@@ -4,13 +4,15 @@ import { App } from './App.tsx'
 import { ThemeProvider } from 'styled-components'
 import { defaultTheme } from './styles/themes/default.ts'
 import { GlobalStyle } from './styles/global.ts'
+import { ArticleContextProvider } from './contexts/ArticleContext.tsx'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <ThemeProvider theme={defaultTheme}>
+  // <React.StrictMode>
+  <ThemeProvider theme={defaultTheme}>
+    <ArticleContextProvider>
       <App />
-
       <GlobalStyle />
-    </ThemeProvider>
-  </React.StrictMode>,
+    </ArticleContextProvider>
+  </ThemeProvider>,
+  // </React.StrictMode>,
 )
